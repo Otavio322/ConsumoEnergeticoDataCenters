@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Predição de Consumo Elétrico</title>
+</head>
+<body>
+    <h2>Consulta de Consumo Elétrico (Data Center)</h2>
+    <form action="/prever" method="POST">
+
+        <label for="capacidade_mw">Capacidade (MW) - até 650:</label>
+        <input type="number" id="capacidade_mw" name="capacidade_mw" step="0.01" min="0" max="650" required><br><br>
+
+        <label for="eficiencia_energetica">Eficiência Energética (PUE) - entre 1.0 e 2.0:</label>
+        <input type="number" id="eficiencia_energetica" name="eficiencia_energetica" step="0.01" min="1" max="2" required><br><br>
+
+        <label for="sistema_resfriamento">Sistema de Resfriamento:</label>
+        <select id="sistema_resfriamento" name="sistema_resfriamento" required>
+            <option value="0">Air Cooled</option>
+            <option value="1">Evaporative</option>
+            <option value="2">Liquid Cooled</option>
+        </select><br><br>
+
+        <label for="eficiencia_agua">Eficiência da Água (WUE) - entre 0 e 3.0:</label>
+        <input type="number" id="eficiencia_agua" name="eficiencia_agua" step="0.01" min="0" max="3" required><br><br>
+
+        <label for="consumo_agua_galoes">Consumo de Água (Galões) - até 8.000.000:</label>
+        <input type="number" id="consumo_agua_galoes" name="consumo_agua_galoes" step="0.01" min="0" max="8000000" required><br><br>
+
+        <button type="submit">Enviar</button>
+    </form>
+
+    {% if resultado is not none %}
+        <div>
+            <h3>O consumo elétrico previsto é: {{ resultado }} MWh</h3>
+        </div>
+    {% endif %}
+</body>
+</html>
